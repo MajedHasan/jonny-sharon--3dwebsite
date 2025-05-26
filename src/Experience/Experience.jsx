@@ -176,10 +176,20 @@ const Scene = ({
       // console.log("Position");
       // console.log(camera.current.getPosition());
 
-      const newProgress = THREE.MathUtils.lerp(
-        scrollProgress,
-        targetScrollProgress.current,
-        lerpFactor
+      // const newProgress = THREE.MathUtils.lerp(
+      //   scrollProgress,
+      //   targetScrollProgress.current,
+      //   lerpFactor
+      // );
+
+      const newProgress = THREE.MathUtils.clamp(
+        THREE.MathUtils.lerp(
+          scrollProgress,
+          targetScrollProgress.current,
+          lerpFactor
+        ),
+        0,
+        1
       );
 
       setScrollProgress(newProgress);
@@ -220,8 +230,11 @@ const Experience = () => {
 
   useEffect(() => {
     const handleWheel = (e) => {
-      targetScrollProgress.current =
+      // targetScrollProgress.current =
+      //   targetScrollProgress.current + Math.sign(e.deltaY) * scrollSpeed * 0.4;
+      const newTarget =
         targetScrollProgress.current + Math.sign(e.deltaY) * scrollSpeed * 0.4;
+      targetScrollProgress.current = THREE.MathUtils.clamp(newTarget, 0, 1);
     };
 
     const handlePointerDown = () => {
@@ -230,9 +243,14 @@ const Experience = () => {
     const handlePointerMove = (e) => {
       if (!isSwiping.current) return;
 
-      targetScrollProgress.current =
+      // targetScrollProgress.current =
+      //   targetScrollProgress.current +
+      //   Math.sign(e.movementY) * scrollSpeed * 0.2;
+
+      const newTarget =
         targetScrollProgress.current +
         Math.sign(e.movementY) * scrollSpeed * 0.2;
+      targetScrollProgress.current = THREE.MathUtils.clamp(newTarget, 0, 1);
     };
 
     const handlePointerUp = () => {
