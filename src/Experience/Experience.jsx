@@ -168,7 +168,7 @@ const Scene = ({
       }
     }
 
-    return rotationTargets[0].rotation;
+    // return rotationTargets[0].rotation;
   };
 
   useFrame(() => {
