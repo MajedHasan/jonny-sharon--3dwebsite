@@ -9,7 +9,7 @@ import {
 
 import * as THREE from "three";
 
-import Home from "./components/models/Home";
+import Home from "./components/models/3dwebsite_v_6";
 
 const CameraHelper = ({ cameraRef }) => {
   useHelper(cameraRef, THREE.CameraHelper);
@@ -33,6 +33,7 @@ const Scene = ({
   scrollProgress,
   setScrollProgress,
   targetScrollProgress,
+  mouseOffset,
 }) => {
   const cameraCurve = new THREE.CatmullRomCurve3([
     new THREE.Vector3(90.87456132219498, 117.8970729680818, 270.7342517305476),
@@ -199,10 +200,32 @@ const Scene = ({
       console.log("Rotation");
       console.log(camera.current.rotation);
 
-      const point = cameraCurve.getPoint(newProgress);
+      const basePoint = cameraCurve.getPoint(newProgress);
+
+      const finalPosition = new THREE.Vector3(
+        basePoint.x + mouseOffset.current.x,
+        basePoint.y - mouseOffset.current.y,
+        basePoint.z
+      );
+
+      camera.current.position.x = THREE.MathUtils.lerp(
+        camera.current.position.x,
+        finalPosition.x,
+        0.1
+      );
+      camera.current.position.y = THREE.MathUtils.lerp(
+        camera.current.position.y,
+        finalPosition.y,
+        0.1
+      );
+      camera.current.position.z = THREE.MathUtils.lerp(
+        camera.current.position.z,
+        finalPosition.z,
+        0.1
+      );
 
       // camera.current.camera.position.copy(point);
-      camera.current.position.copy(point);
+      camera.current.position.copy(basePoint);
 
       const targetRotation = getLerpedRotation(newProgress);
       camera.current.rotation.copy(targetRotation);
@@ -227,6 +250,8 @@ const Experience = () => {
   const scrollSpeed = 0.005;
   const lerpFactor = 0.1;
   const isSwiping = useRef(false);
+
+  const mouseOffset = useRef(new THREE.Vector3());
 
   useEffect(() => {
     const handleWheel = (e) => {
@@ -257,13 +282,26 @@ const Experience = () => {
       isSwiping.current = false;
     };
 
+    const handleMouseMove = (e) => {
+      const mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+      const mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+
+      const sensitivityX = 0.2;
+      const sensitivityY = 0.2;
+
+      mouseOffset.current.x = mouseX * sensitivityX;
+      mouseOffset.current.y = mouseY * sensitivityY;
+    };
+
     window.addEventListener("wheel", handleWheel);
+    window.addEventListener("mousemove", handleMouseMove);
     // window.addEventListener("pointerdown", handlePointerDown);
     // window.addEventListener("pointermove", handlePointerMove);
     // window.addEventListener("pointerup", handlePointerUp);
 
     return () => {
       window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("pointerdown", handlePointerDown);
       window.removeEventListener("pointermove", handlePointerMove);
       window.removeEventListener("pointerup", handlePointerUp);
@@ -280,9 +318,13 @@ const Experience = () => {
         />
         <ambientLight intensity={1} />
 
+        {/* <pointLight position={[100, 100, 100]} intensity={5} />
+        <meshStandardMaterial transparent={false} opacity={1} /> */}
+
         <Scene
           camera={camera}
           lerpFactor={lerpFactor}
+          mouseOffset={mouseOffset}
           scrollProgress={scrollProgress}
           setScrollProgress={setScrollProgress}
           targetScrollProgress={targetScrollProgress}
