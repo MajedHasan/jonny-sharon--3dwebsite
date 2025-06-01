@@ -2,6 +2,7 @@ import { React, Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
   CameraControls,
+  Environment,
   OrbitControls,
   PerspectiveCamera,
   useHelper,
@@ -9,7 +10,7 @@ import {
 
 import * as THREE from "three";
 
-import Home from "./components/models/3dwebsite_v_6";
+import Home from "./models/3dwebsite_v_7";
 
 const CameraHelper = ({ cameraRef }) => {
   useHelper(cameraRef, THREE.CameraHelper);
@@ -36,20 +37,38 @@ const Scene = ({
   mouseOffset,
 }) => {
   const cameraCurve = new THREE.CatmullRomCurve3([
-    new THREE.Vector3(90.87456132219498, 117.8970729680818, 270.7342517305476),
-    new THREE.Vector3(99.4367832551978, 101.5388699177154, 200.76076076172663),
-    new THREE.Vector3(103.47823066460788, 92.2351377110094, 95.8799586674829),
-    new THREE.Vector3(99.81813429495563, 100.38540896746655, 78.61357279146156),
-    new THREE.Vector3(179.69596019321406, 102.1109604472254, 40.35978586505511),
-    new THREE.Vector3(217.58823116353966, 102.95028839612164, 38.6471734477092),
-    new THREE.Vector3(260.494392811521, 100.77439387803213, 27.99127277467842),
-    new THREE.Vector3(260.2906944578748, 107.55842848416825, 70.66731519495971),
-    new THREE.Vector3(311.4673643650239, 95.69596048414374, 86.4360855135099),
-    new THREE.Vector3(364.3970225240414, 92.6971069563327, -24.032636058587084),
     new THREE.Vector3(
-      323.81249696572024,
-      91.80177288246666,
-      -30.40781183894164
+      100.42149668141265,
+      106.52436110906683,
+      224.3863164589432
+    ),
+    new THREE.Vector3(
+      100.17298918999013,
+      90.35189803107018,
+      105.97002012367534
+    ),
+    new THREE.Vector3(107.14759478293381, 99.33238983011671, 86.82942322577027),
+    new THREE.Vector3(218.8680523793594, 93.00659824572418, 3.231043091195936),
+    new THREE.Vector3(277.34528405553834, 94.51550590018039, 40.56150637480602),
+    new THREE.Vector3(
+      332.73780827273293,
+      89.86513343470557,
+      -28.902788507513836
+    ),
+    new THREE.Vector3(
+      307.01531066791034,
+      91.71540507937593,
+      -13.868152579597078
+    ),
+    new THREE.Vector3(
+      307.22331729360303,
+      92.04545032131468,
+      -29.935756344010965
+    ),
+    new THREE.Vector3(
+      307.46000405890163,
+      92.3095414337075,
+      -48.599971455097986
     ),
   ]);
 
@@ -57,81 +76,73 @@ const Scene = ({
     {
       progress: 0,
       rotation: new THREE.Euler(
-        -0.21771643944764107,
-        -0.03129190287187789,
-        -0.006921244981888409
+        -0.14516047974655538,
+        -0.002728550872735836,
+        -0.00039888288038069655
       ),
     },
     {
-      progress: 0.1570000000000001,
+      progress: 0.12499999982181885,
       rotation: new THREE.Euler(
-        -0.17652033496540906,
-        -0.0006820099838210879,
-        -0.00012165481835572273
+        -0.10357364851305577,
+        0.002053377719078932,
+        0.00021343943975923654
       ),
     },
     {
-      progress: 0.19099999999838035,
+      progress: 0.2549999999203713,
       rotation: new THREE.Euler(
-        -0.1394011343610872,
-        0.008845001161990012,
-        0.0012410358014257577
+        -0.12478543311010601,
+        -0.012963307151185157,
+        -0.0016260338167606073
       ),
     },
     {
-      progress: 0.3840000000000003,
+      progress: 0.40250000001569064,
       rotation: new THREE.Euler(
-        -0.2162339089183201,
-        -0.12065612048263391,
-        -0.026433906769094666
+        0.0017706483223626477,
+        -0.010615599828687247,
+        0.000018796160638038767
       ),
     },
     {
-      progress: 0.518,
+      progress: 0.5300000000002714,
       rotation: new THREE.Euler(
-        -0.19083558744805607,
-        -0.006996406593872995,
-        -0.0013515992446637905
+        -0.02147325646096882,
+        0.010940509820448039,
+        0.00023495979676665263
       ),
     },
     {
-      progress: 0.5750000000000006,
+      progress: 0.6674999999998849,
       rotation: new THREE.Euler(
-        -0.18090828491569602,
-        -0.35512277897362454,
-        -0.06351259265973724
+        1.0222031575247343,
+        1.5309835143370982,
+        -1.0218503534198673
       ),
     },
     {
-      progress: 0.7270000000000006,
+      progress: 0.7700000003407186,
       rotation: new THREE.Euler(
-        -0.20510930402317848,
-        -0.16674608176811778,
-        -0.034514757013798934
+        1.2863279118434705,
+        1.5277227206076094,
+        -1.2860778524937158
       ),
     },
     {
-      progress: 0.8110000000000013,
+      progress: 0.8750000020961836,
       rotation: new THREE.Euler(
-        -0.13074524243225397,
-        0.23311441456166387,
-        0.03036725194040267
+        1.2863279118586133,
+        1.5277227206053816,
+        -1.2860778525088454
       ),
     },
     {
-      progress: 0.8510000000000003,
+      progress: 0.9999999912120051,
       rotation: new THREE.Euler(
-        -0.20885707314769916,
-        0.5596362664538206,
-        0.11204719837087342
-      ),
-    },
-    {
-      progress: 0.9820000000000003,
-      rotation: new THREE.Euler(
-        -1.3630903309918052,
-        1.4788224246944288,
-        1.3622340040307406
+        1.2863279118586133,
+        1.5277227206053816,
+        -1.2860778525088457
       ),
     },
   ];
@@ -174,9 +185,6 @@ const Scene = ({
 
   useFrame(() => {
     if (camera) {
-      // console.log("Position");
-      // console.log(camera.current.getPosition());
-
       // const newProgress = THREE.MathUtils.lerp(
       //   scrollProgress,
       //   targetScrollProgress.current,
@@ -195,6 +203,8 @@ const Scene = ({
 
       setScrollProgress(newProgress);
 
+      console.log("Position");
+      console.log(camera.current.position);
       console.log("New Progress");
       console.log(newProgress);
       console.log("Rotation");
@@ -208,21 +218,21 @@ const Scene = ({
         basePoint.z
       );
 
-      camera.current.position.x = THREE.MathUtils.lerp(
-        camera.current.position.x,
-        finalPosition.x,
-        0.1
-      );
-      camera.current.position.y = THREE.MathUtils.lerp(
-        camera.current.position.y,
-        finalPosition.y,
-        0.1
-      );
-      camera.current.position.z = THREE.MathUtils.lerp(
-        camera.current.position.z,
-        finalPosition.z,
-        0.1
-      );
+      // camera.current.position.x = THREE.MathUtils.lerp(
+      //   camera.current.position.x,
+      //   finalPosition.x,
+      //   0.1
+      // );
+      // camera.current.position.y = THREE.MathUtils.lerp(
+      //   camera.current.position.y,
+      //   finalPosition.y,
+      //   0.1
+      // );
+      // camera.current.position.z = THREE.MathUtils.lerp(
+      //   camera.current.position.z,
+      //   finalPosition.z,
+      //   0.1
+      // );
 
       // camera.current.camera.position.copy(point);
       camera.current.position.copy(basePoint);
@@ -234,7 +244,7 @@ const Scene = ({
 
   return (
     <>
-      <DebugCurve curve={cameraCurve} />
+      {/* <DebugCurve curve={cameraCurve} /> */}
       <Suspense>
         <Home />
       </Suspense>
@@ -258,7 +268,7 @@ const Experience = () => {
       // targetScrollProgress.current =
       //   targetScrollProgress.current + Math.sign(e.deltaY) * scrollSpeed * 0.4;
       const newTarget =
-        targetScrollProgress.current + Math.sign(e.deltaY) * scrollSpeed * 0.4;
+        targetScrollProgress.current + Math.sign(e.deltaY) * scrollSpeed * 0.5;
       targetScrollProgress.current = THREE.MathUtils.clamp(newTarget, 0, 1);
     };
 
@@ -295,9 +305,9 @@ const Experience = () => {
 
     window.addEventListener("wheel", handleWheel);
     window.addEventListener("mousemove", handleMouseMove);
-    // window.addEventListener("pointerdown", handlePointerDown);
-    // window.addEventListener("pointermove", handlePointerMove);
-    // window.addEventListener("pointerup", handlePointerUp);
+    window.addEventListener("pointerdown", handlePointerDown);
+    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointerup", handlePointerUp);
 
     return () => {
       window.removeEventListener("wheel", handleWheel);
@@ -311,15 +321,12 @@ const Experience = () => {
   return (
     <>
       <Canvas eventSource={document.getElementById("root")}>
-        <directionalLight
-          position={[10, 10, 10]}
-          intensity={1.5}
-          color="white"
-        />
-        <ambientLight intensity={1} />
+        <directionalLight position={[10, 10, 10]} intensity={1} color="white" />
+        <ambientLight intensity={0.3} />
 
-        {/* <pointLight position={[100, 100, 100]} intensity={5} />
-        <meshStandardMaterial transparent={false} opacity={1} /> */}
+        <pointLight position={[100, 100, 100]} intensity={5} />
+        <meshStandardMaterial transparent={false} opacity={1} />
+        <Environment preset="sunset" background />
 
         <Scene
           camera={camera}
